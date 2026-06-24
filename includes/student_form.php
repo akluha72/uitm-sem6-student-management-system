@@ -11,6 +11,11 @@ $v = function (string $k) use ($student) {
 $selected = function (string $k, string $val) use ($student) {
     return (($student[$k] ?? '') === $val) ? 'selected' : '';
 };
+$autogen_id = $autogen_id ?? false;
+
+// Standard Malaysian options.
+$races     = ['Malay', 'Chinese', 'Indian', 'Bumiputera Sabah', 'Bumiputera Sarawak', 'Orang Asli', 'Others'];
+$religions = ['Islam', 'Buddhism', 'Christianity', 'Hinduism', 'Sikhism', 'Taoism', 'Others'];
 ?>
 <form method="post" enctype="multipart/form-data">
     <?php if (!empty($student['id'])): ?>
@@ -18,8 +23,9 @@ $selected = function (string $k, string $val) use ($student) {
     <?php endif; ?>
     <div class="form-grid">
         <div class="form-group">
-            <label>Student ID</label>
-            <input type="text" name="student_id" value="<?= $v('student_id') ?>" required>
+            <label>Student ID <?= $autogen_id ? '<small class="muted">(auto-generated)</small>' : '' ?></label>
+            <input type="text" name="student_id" value="<?= $v('student_id') ?>"
+                   <?= $autogen_id ? 'readonly' : 'required' ?>>
         </div>
         <div class="form-group">
             <label>Student Name</label>
@@ -51,11 +57,21 @@ $selected = function (string $k, string $val) use ($student) {
         </div>
         <div class="form-group">
             <label>Race</label>
-            <input type="text" name="race" value="<?= $v('race') ?>" required>
+            <select name="race" required>
+                <option value="">-- Select --</option>
+                <?php foreach ($races as $r): ?>
+                    <option value="<?= e($r) ?>" <?= $selected('race', $r) ?>><?= e($r) ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="form-group">
             <label>Religion</label>
-            <input type="text" name="religion" value="<?= $v('religion') ?>" required>
+            <select name="religion" required>
+                <option value="">-- Select --</option>
+                <?php foreach ($religions as $r): ?>
+                    <option value="<?= e($r) ?>" <?= $selected('religion', $r) ?>><?= e($r) ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="form-group">
             <label>Contact Number</label>

@@ -54,6 +54,22 @@ function get_student_by_id(mysqli $conn, int $id): ?array
     return $row ?: null;
 }
 
+/**
+ * Generate the next Student ID by incrementing the largest existing one.
+ * Continues the numeric sequence (e.g. 2023111002 -> 2023111003).
+ * Falls back to a base value when the table is empty.
+ */
+function get_next_student_id(mysqli $conn): string
+{
+    $sql = "SELECT MAX(CAST(student_id AS UNSIGNED)) AS max_id FROM student";
+    $row = $conn->query($sql)->fetch_assoc();
+    $max = (int)($row['max_id'] ?? 0);
+    if ($max <= 0) {
+        $max = 2023111000;   // base when table is empty
+    }
+    return (string)($max + 1);
+}
+
 /** Check whether a student_id already exists (optionally excluding one id). */
 function student_id_exists(mysqli $conn, string $student_id, int $exclude_id = 0): bool
 {
