@@ -43,8 +43,26 @@ body {
 }
 .nav a:hover { background: rgba(255,255,255,.18); }
 .nav-logout { background: rgba(0,0,0,.18); }
-.nav-user { padding: 0.4rem 0.6rem; font-size: .9rem; opacity: .95; }
 .nav-toggle { display: none; background: none; border: 0; color: #fff; font-size: 1.5rem; cursor: pointer; margin-left: auto; }
+
+/* User chip — visually separated from the nav links */
+.nav-user {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin: 0 .4rem 0 .75rem;
+    padding: .3rem .7rem;
+    font-size: .85rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+}
+.nav-user::before {
+    content: "👤";
+    font-size: .9rem;
+}
 
 .badge {
     display: inline-block; padding: .05rem .4rem; border-radius: 999px;
@@ -133,7 +151,8 @@ tr:hover td { background: #f8fafc; }
     .nav-toggle { display: block; }
     .nav { display: none; width: 100%; flex-direction: column; align-items: stretch; padding-bottom: .5rem; }
     .nav.open { display: flex; }
-    .nav a, .nav-user { width: 100%; }
+    .nav a { width: 100%; }
+    .nav-user { width: auto; align-self: flex-start; margin: .5rem .4rem; }
     .form-grid { grid-template-columns: 1fr; }
     .brand { padding-right: 0; }
 }
