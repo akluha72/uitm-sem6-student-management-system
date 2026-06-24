@@ -1,0 +1,139 @@
+/* ============================================================
+   Student Management System — Responsive Stylesheet
+   ============================================================ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- Top bar / navigation ---------- */
+.topbar {
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+.brand { font-weight: 700; font-size: 1.15rem; padding: 1rem 0.5rem 1rem 0; }
+.nav { margin-left: auto; display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+.nav a {
+    color: #fff; text-decoration: none; padding: 0.6rem 0.9rem;
+    border-radius: 6px; transition: background .15s;
+}
+.nav a:hover { background: rgba(255,255,255,.18); }
+.nav-logout { background: rgba(0,0,0,.18); }
+.nav-user { padding: 0.4rem 0.6rem; font-size: .9rem; opacity: .95; }
+.nav-toggle { display: none; background: none; border: 0; color: #fff; font-size: 1.5rem; cursor: pointer; margin-left: auto; }
+
+.badge {
+    display: inline-block; padding: .05rem .4rem; border-radius: 999px;
+    font-size: .7rem; text-transform: uppercase; letter-spacing: .03em;
+}
+.badge-admin { background: #fde68a; color: #92400e; }
+.badge-student { background: #bbf7d0; color: #166534; }
+
+/* ---------- Layout ---------- */
+.container { flex: 1; width: 100%; max-width: 1000px; margin: 1.5rem auto; padding: 0 1rem; }
+.footer { text-align: center; padding: 1rem; color: var(--muted); font-size: .85rem; }
+
+h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+h2 { font-size: 1.25rem; margin: 1rem 0 .5rem; }
+.page-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+
+/* ---------- Cards ---------- */
+.card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-block; border: 0; cursor: pointer; text-decoration: none;
+    padding: .55rem 1rem; border-radius: 6px; font-size: .9rem; font-weight: 600;
+    background: var(--primary); color: #fff; transition: background .15s;
+}
+.btn:hover { background: var(--primary-dark); }
+.btn-sm { padding: .3rem .6rem; font-size: .8rem; }
+.btn-secondary { background: #64748b; }
+.btn-secondary:hover { background: #475569; }
+.btn-success { background: var(--success); }
+.btn-danger { background: var(--danger); }
+.btn-danger:hover { background: #b91c1c; }
+.btn[disabled], .btn.disabled { background: #cbd5e1; color: #64748b; cursor: not-allowed; pointer-events: none; }
+
+/* ---------- Forms ---------- */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+label { font-weight: 600; font-size: .85rem; margin-bottom: .3rem; }
+input, select {
+    padding: .55rem .7rem; border: 1px solid var(--border); border-radius: 6px;
+    font-size: .9rem; background: #fff; width: 100%;
+}
+input:focus, select:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+.form-actions { margin-top: 1.25rem; display: flex; gap: .5rem; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 8px; overflow: hidden; }
+th, td { padding: .7rem .8rem; text-align: left; border-bottom: 1px solid var(--border); font-size: .88rem; }
+th { background: #f8fafc; font-weight: 700; }
+tr:hover td { background: #f8fafc; }
+.actions { display: flex; gap: .35rem; flex-wrap: wrap; }
+
+/* ---------- Alerts ---------- */
+.alert { padding: .8rem 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: .9rem; }
+.alert-success { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.alert-info { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+
+/* ---------- Misc ---------- */
+.photo-thumb { width: 42px; height: 42px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border); }
+.photo-lg { width: 140px; height: 140px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
+.detail-table th { width: 180px; }
+.muted { color: var(--muted); }
+.search-bar { display: flex; gap: .5rem; margin-bottom: 1rem; }
+.search-bar input { flex: 1; }
+
+/* ---------- Login ---------- */
+.login-wrap { max-width: 380px; margin: 3rem auto; }
+.login-wrap .card { padding: 2rem; }
+.login-hint { font-size: .8rem; color: var(--muted); margin-top: 1rem; text-align: center; }
+
+/* ---------- Home tiles ---------- */
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.tile { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; color: var(--text); transition: transform .12s, box-shadow .12s; }
+.tile:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+.tile .icon { font-size: 1.8rem; }
+.tile h3 { margin: .4rem 0 .2rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+    .nav-toggle { display: block; }
+    .nav { display: none; width: 100%; flex-direction: column; align-items: stretch; padding-bottom: .5rem; }
+    .nav.open { display: flex; }
+    .nav a, .nav-user { width: 100%; }
+    .form-grid { grid-template-columns: 1fr; }
+    .brand { padding-right: 0; }
+}
