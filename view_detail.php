@@ -22,7 +22,7 @@ require_once __DIR__ . '/includes/header.php';
             <?php if (!empty($student['photo'])): ?>
                 <img class="photo-lg" src="uploads/<?= e($student['photo']) ?>" alt="student photo">
             <?php else: ?>
-                <div class="photo-lg" style="display:flex;align-items:center;justify-content:center;background:#f1f5f9;color:#94a3b8;">No Photo</div>
+                <img class="photo-lg" src="<?= e(default_avatar($student['name'], $student['gender'])) ?>" alt="student photo">
             <?php endif; ?>
         </div>
         <div style="flex:1; min-width:260px;">
@@ -34,6 +34,7 @@ require_once __DIR__ . '/includes/header.php';
                 <tr><th>Address 2</th><td><?= e($student['address2']) ?></td></tr>
                 <tr><th>Postcode</th><td><?= e($student['postcode']) ?></td></tr>
                 <tr><th>City</th><td><?= e($student['city']) ?></td></tr>
+                <tr><th>State</th><td><?= e($student['state']) ?></td></tr>
                 <tr><th>Gender</th><td><?= e($student['gender']) ?></td></tr>
                 <tr><th>Race</th><td><?= e($student['race']) ?></td></tr>
                 <tr><th>Religion</th><td><?= e($student['religion']) ?></td></tr>

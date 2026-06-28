@@ -1,22 +1,14 @@
 <?php
-/**
- * ============================================================
- *  queries.php  —  SINGLE CENTRAL FILE FOR ALL SQL QUERIES
- * ============================================================
- *  Every database read/write in this application goes through a
- *  function defined here. No SQL is written anywhere else in the
- *  project. All statements use prepared statements to prevent
- *  SQL injection.
- * ============================================================
- */
+
+
 
 require_once __DIR__ . '/../config/database.php';
 
-/* ----------------------------------------------------------
- *  AUTHENTICATION / USER QUERIES
- * -------------------------------------------------------- */
 
-/** Fetch a single user row by username (for login). */
+
+
+
+
 function get_user_by_username(mysqli $conn, string $username): ?array
 {
     $sql = "SELECT user_id, username, password, full_name, role, photo
@@ -30,11 +22,11 @@ function get_user_by_username(mysqli $conn, string $username): ?array
     return $row ?: null;
 }
 
-/* ----------------------------------------------------------
- *  STUDENT QUERIES
- * -------------------------------------------------------- */
 
-/** Return all student records (newest first). */
+
+
+
+
 function get_all_students(mysqli $conn): array
 {
     $sql = "SELECT * FROM student ORDER BY id DESC";
@@ -42,7 +34,8 @@ function get_all_students(mysqli $conn): array
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-/** Return a single student by primary key id. */
+
+
 function get_student_by_id(mysqli $conn, int $id): ?array
 {
     $sql = "SELECT * FROM student WHERE id = ? LIMIT 1";
@@ -54,23 +47,21 @@ function get_student_by_id(mysqli $conn, int $id): ?array
     return $row ?: null;
 }
 
-/**
- * Generate the next Student ID by incrementing the largest existing one.
- * Continues the numeric sequence (e.g. 2023111002 -> 2023111003).
- * Falls back to a base value when the table is empty.
- */
+
+
 function get_next_student_id(mysqli $conn): string
 {
     $sql = "SELECT MAX(CAST(student_id AS UNSIGNED)) AS max_id FROM student";
     $row = $conn->query($sql)->fetch_assoc();
     $max = (int)($row['max_id'] ?? 0);
     if ($max <= 0) {
-        $max = 2023111000;   // base when table is empty
+        $max = 2023111000;   
     }
     return (string)($max + 1);
 }
 
-/** Check whether a student_id already exists (optionally excluding one id). */
+
+
 function student_id_exists(mysqli $conn, string $student_id, int $exclude_id = 0): bool
 {
     $sql  = "SELECT id FROM student WHERE student_id = ? AND id <> ? LIMIT 1";
@@ -82,7 +73,8 @@ function student_id_exists(mysqli $conn, string $student_id, int $exclude_id = 0
     return $exists;
 }
 
-/** Search students by Student ID or Name (partial match). */
+
+
 function search_students(mysqli $conn, string $keyword): array
 {
     $like = '%' . $keyword . '%';
@@ -97,19 +89,21 @@ function search_students(mysqli $conn, string $keyword): array
     return $rows;
 }
 
-/** Insert a new student. $data is an associative array of all columns. */
+
+
 function add_student(mysqli $conn, array $data): int
 {
     $sql = "INSERT INTO student
-            (student_id, name, address1, address2, postcode, city,
+            (student_id, name, address1, address2, postcode, city, state,
              gender, race, religion, contact, email, photo)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        'ssssssssssss',
+        'sssssssssssss',
         $data['student_id'], $data['name'], $data['address1'], $data['address2'],
-        $data['postcode'],   $data['city'], $data['gender'],   $data['race'],
-        $data['religion'],   $data['contact'], $data['email'], $data['photo']
+        $data['postcode'],   $data['city'], $data['state'],    $data['gender'],
+        $data['race'],       $data['religion'], $data['contact'], $data['email'],
+        $data['photo']
     );
     $stmt->execute();
     $newId = $stmt->insert_id;
@@ -117,28 +111,30 @@ function add_student(mysqli $conn, array $data): int
     return $newId;
 }
 
-/** Update an existing student by id. */
+
+
 function update_student(mysqli $conn, int $id, array $data): bool
 {
     $sql = "UPDATE student SET
                 student_id = ?, name = ?, address1 = ?, address2 = ?,
-                postcode = ?, city = ?, gender = ?, race = ?,
+                postcode = ?, city = ?, state = ?, gender = ?, race = ?,
                 religion = ?, contact = ?, email = ?, photo = ?
             WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        'ssssssssssssi',
+        'sssssssssssssi',
         $data['student_id'], $data['name'], $data['address1'], $data['address2'],
-        $data['postcode'],   $data['city'], $data['gender'],   $data['race'],
-        $data['religion'],   $data['contact'], $data['email'], $data['photo'],
-        $id
+        $data['postcode'],   $data['city'], $data['state'],    $data['gender'],
+        $data['race'],       $data['religion'], $data['contact'], $data['email'],
+        $data['photo'],      $id
     );
     $ok = $stmt->execute();
     $stmt->close();
     return $ok;
 }
 
-/** Delete a student by id. Returns the deleted photo filename (if any). */
+
+
 function delete_student(mysqli $conn, int $id): bool
 {
     $sql  = "DELETE FROM student WHERE id = ?";

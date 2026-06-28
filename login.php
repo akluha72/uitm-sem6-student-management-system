@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
 
-// Already logged in? Go home.
+
 if (is_logged_in()) {
     header('Location: index.php');
     exit;
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $user = get_user_by_username($conn, $username);
         if ($user && password_verify($password, $user['password'])) {
-            // Set up session.
+            
             session_regenerate_id(true);
             $_SESSION['user_id']   = $user['user_id'];
             $_SESSION['username']  = $user['username'];

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
-require_admin();   // only admin may delete
+require_admin();   
 
 $id = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
 $student = $id ? get_student_by_id($conn, $id) : null;
@@ -13,9 +13,9 @@ if (!$student) {
     exit;
 }
 
-// Confirmed deletion (POST).
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['confirm'] ?? '') === 'yes') {
-    // Remove photo file if present.
+    
     if (!empty($student['photo'])) {
         $path = __DIR__ . '/uploads/' . $student['photo'];
         if (is_file($path)) {
@@ -33,7 +33,7 @@ require_once __DIR__ . '/includes/header.php';
 <h1>Delete Student</h1>
 <div class="card" style="margin-top:1rem;">
     <div class="alert alert-error" style="margin-bottom:1rem;">
-        ⚠️ Are you sure you want to delete this student? This action cannot be undone.
+        <i class="fa-solid fa-triangle-exclamation"></i> Are you sure you want to delete this student? This action cannot be undone.
     </div>
     <table class="detail-table">
         <tr><th>Student ID</th><td><?= e($student['student_id']) ?></td></tr>

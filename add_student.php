@@ -1,22 +1,22 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
-require_admin();   // only admin may add
+require_admin();   
 
 $error   = '';
-$student = [];     // empty form
+$student = [];     
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect and trim input (student_id is auto-generated, not taken from the form).
-    $fields = ['name','address1','address2','postcode','city',
+    
+    $fields = ['name','address1','address2','postcode','city','state',
                'gender','race','religion','contact','email'];
     foreach ($fields as $f) {
         $student[$f] = trim($_POST[$f] ?? '');
     }
 
-    // Generate the Student ID server-side so it is always unique and current.
+    
     $student['student_id'] = get_next_student_id($conn);
 
-    // Basic validation.
+    
     if ($student['name'] === '' || $student['email'] === '') {
         $error = 'Name and Email are required.';
     } else {
@@ -31,12 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Show a preview of the ID that will be assigned.
+
 $student['student_id'] = get_next_student_id($conn);
 
 $page_title   = 'Add Student';
 $submit_label = 'Add Student';
-$autogen_id   = true;   // render Student ID as read-only / auto-generated
+$autogen_id   = true;   
 require_once __DIR__ . '/includes/header.php';
 ?>
 <h1>Add Student</h1>

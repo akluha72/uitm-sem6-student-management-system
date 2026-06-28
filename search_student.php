@@ -17,7 +17,7 @@ require_once __DIR__ . '/includes/header.php';
 <form method="get" action="search_student.php" class="search-bar" style="margin-top:1rem;">
     <input type="text" name="keyword" placeholder="Enter Student ID or Name..."
            value="<?= e($keyword) ?>" autofocus>
-    <button type="submit" class="btn">🔍 Search</button>
+    <button type="submit" class="btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
 </form>
 
 <?php if ($results !== null): ?>

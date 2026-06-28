@@ -1,15 +1,12 @@
 <?php
-/**
- * Database connection (MySQLi).
- * Laragon defaults: host=127.0.0.1, user=root, no password.
- */
+
+
 
 define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'STUDENTMGTDB');
+define('DB_NAME', 'student_mgt_sys');
 
-// Throw exceptions on MySQLi errors so we never run on a bad connection.
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {

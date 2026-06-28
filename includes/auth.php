@@ -1,8 +1,6 @@
 <?php
-/**
- * Session management + access-control helpers.
- * (No SQL here — all queries live in includes/queries.php.)
- */
+
+
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -10,19 +8,22 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once __DIR__ . '/queries.php';
 
-/** Is someone logged in? */
+
+
 function is_logged_in(): bool
 {
     return isset($_SESSION['user_id']);
 }
 
-/** Is the logged-in user an admin? */
+
+
 function is_admin(): bool
 {
     return is_logged_in() && ($_SESSION['role'] ?? '') === 'admin';
 }
 
-/** Redirect to login page if not authenticated. */
+
+
 function require_login(): void
 {
     if (!is_logged_in()) {
@@ -31,10 +32,8 @@ function require_login(): void
     }
 }
 
-/**
- * Block non-admins from admin-only actions (add/edit/delete).
- * Students may only view.
- */
+
+
 function require_admin(): void
 {
     require_login();
@@ -44,17 +43,15 @@ function require_admin(): void
     }
 }
 
-/** Escape output for safe HTML rendering. */
+
+
 function e($value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
-/**
- * Handle an optional photo upload from $_FILES[$field].
- * Returns the stored filename, or '' if no file was uploaded.
- * Throws RuntimeException on a real upload error.
- */
+
+
 function handle_photo_upload(string $field): string
 {
     if (empty($_FILES[$field]) || $_FILES[$field]['error'] === UPLOAD_ERR_NO_FILE) {
@@ -88,4 +85,11 @@ function handle_photo_upload(string $field): string
         throw new RuntimeException('Could not save uploaded photo.');
     }
     return $name;
+}
+
+function default_avatar(string $name, string $gender): string
+{
+    $bg = strtolower($gender) === 'female' ? 'f472b6' : '60a5fa';
+    return 'https://ui-avatars.com/api/?name=' . urlencode($name)
+         . '&background=' . $bg . '&color=fff&size=140&bold=true';
 }

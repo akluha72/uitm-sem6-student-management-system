@@ -1,8 +1,6 @@
 <?php
-/**
- * Shared page header + navigation menu.
- * Expects $page_title to be set before include (optional).
- */
+
+
 require_once __DIR__ . '/auth.php';
 $page_title = $page_title ?? 'Student Management System';
 ?>
@@ -12,11 +10,12 @@ $page_title = $page_title ?? 'Student Management System';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($page_title) ?></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <header class="topbar">
-    <div class="brand">🎓 Student Management System</div>
+    <div class="brand"><i class="fa-solid fa-user-graduate"></i> Student Management System</div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
     <nav class="nav" id="mainNav">
         <a href="index.php">Home</a>

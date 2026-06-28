@@ -26,8 +26,8 @@ require_once __DIR__ . '/includes/header.php';
 
     <h2>Access Roles</h2>
     <ul style="margin-left:1.2rem;">
-        <li><strong>Admin</strong> — full access: add, edit, delete and view students.</li>
-        <li><strong>Student</strong> — read-only: may view student details only.</li>
+        <li><strong>Admin</strong> - full access: add, edit, delete and view students.</li>
+        <li><strong>Student</strong> - read-only: may view student details only.</li>
     </ul>
 
     <h2>Technology</h2>

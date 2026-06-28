@@ -1,10 +1,6 @@
 <?php
-/**
- * Shared student form, used by add_student.php and edit_student.php.
- * Expects:
- *   $student      array of current/old values (keys = columns), or [] for empty
- *   $submit_label string for the submit button
- */
+
+
 $v = function (string $k) use ($student) {
     return e($student[$k] ?? '');
 };
@@ -13,7 +9,7 @@ $selected = function (string $k, string $val) use ($student) {
 };
 $autogen_id = $autogen_id ?? false;
 
-// Standard Malaysian options.
+
 $races     = ['Malay', 'Chinese', 'Indian', 'Bumiputera Sabah', 'Bumiputera Sarawak', 'Orang Asli', 'Others'];
 $religions = ['Islam', 'Buddhism', 'Christianity', 'Hinduism', 'Sikhism', 'Taoism', 'Others'];
 ?>
@@ -46,6 +42,19 @@ $religions = ['Islam', 'Buddhism', 'Christianity', 'Hinduism', 'Sikhism', 'Taois
         <div class="form-group">
             <label>City</label>
             <input type="text" name="city" value="<?= $v('city') ?>" required>
+        </div>
+        <div class="form-group">
+            <label>State</label>
+            <select name="state" required>
+                <option value="">-- Select --</option>
+                <?php
+                $states = ['Johor','Kedah','Kelantan','Melaka','Negeri Sembilan','Pahang',
+                           'Perak','Perlis','Pulau Pinang','Sabah','Sarawak','Selangor',
+                           'Terengganu','W.P. Kuala Lumpur','W.P. Labuan','W.P. Putrajaya'];
+                foreach ($states as $st): ?>
+                    <option value="<?= e($st) ?>" <?= $selected('state', $st) ?>><?= e($st) ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="form-group">
             <label>Gender</label>

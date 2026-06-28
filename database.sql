@@ -19,10 +19,10 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     user_id     INT AUTO_INCREMENT PRIMARY KEY,
     username    VARCHAR(50)  NOT NULL UNIQUE,
-    password    VARCHAR(255) NOT NULL,            -- bcrypt hash
+    password    VARCHAR(255) NOT NULL,           
     full_name   VARCHAR(100) NOT NULL,
     role        ENUM('admin','student') NOT NULL DEFAULT 'student',
-    photo       VARCHAR(255) DEFAULT NULL          -- extension: photo column in user table
+    photo       VARCHAR(255) DEFAULT NULL          
 ) ENGINE=InnoDB;
 
 -- ------------------------------------------------------------
@@ -61,3 +61,8 @@ INSERT INTO student
 (student_id, name, address1, address2, postcode, city, gender, race, religion, contact, email) VALUES
 ('2023111001', 'Ahmad Bin Ali', 'No 12 Jalan Mawar', 'Taman Seri', '40000', 'Shah Alam', 'Male',   'Malay',  'Islam',    '012-3456789', 'ahmad@example.com'),
 ('2023111002', 'Siti Nurhaliza', 'No 88 Jalan Melati', 'Taman Indah', '43000', 'Kajang',   'Female', 'Malay',  'Islam',    '019-8765432', 'siti@example.com');
+
+-- ------------------------------------------------------------
+--  Add STATE column to existing student table
+-- ------------------------------------------------------------
+ALTER TABLE student ADD COLUMN state VARCHAR(40) NOT NULL DEFAULT '' AFTER city;

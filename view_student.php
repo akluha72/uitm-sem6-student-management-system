@@ -10,7 +10,7 @@ require_once __DIR__ . '/includes/header.php';
 <div class="page-head">
     <h1>Student Records</h1>
     <?php if (is_admin()): ?>
-        <a href="add_student.php" class="btn">➕ Add Student</a>
+        <a href="add_student.php" class="btn"><i class="fa-solid fa-plus"></i> Add Student</a>
     <?php endif; ?>
 </div>
 
@@ -44,7 +44,7 @@ require_once __DIR__ . '/includes/header.php';
                     <?php if (!empty($s['photo'])): ?>
                         <img class="photo-thumb" src="uploads/<?= e($s['photo']) ?>" alt="photo">
                     <?php else: ?>
-                        <span class="muted">—</span>
+                        <img class="photo-thumb" src="<?= e(default_avatar($s['name'], $s['gender'])) ?>" alt="photo">
                     <?php endif; ?>
                 </td>
                 <td><?= e($s['student_id']) ?></td>
